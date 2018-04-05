@@ -1,0 +1,161 @@
+#He, Daniel
+#3/28/17
+GameOver = False
+import sys
+g_board = [
+    [' ',' ',' '],
+    [' ',' ',' '],
+    [' ',' ',' ']
+    ]
+Turn = 0
+
+def print_board(g_board):
+    ''' The function print_board() prints the current tic-tac-toe board, updated if needed
+    input: None
+    output: Tic-tac-toe board
+    '''
+    Tac_board = ''
+    for i in range(len(g_board)):
+        
+        for x in range(len(g_board[i])):
+            Tac_board += '['+str(g_board[i][x])+']'
+        Tac_board += '\n'
+    print(Tac_board)
+        
+print_board(g_board)
+
+
+def horizontal_win(g_board):
+    ''' The function horizontal_win() takes in g_board and checks if a player wins by having 3 horizontal squares filled
+    input: the game board
+    output: GameOver
+    '''
+    
+    for i in range(len(g_board)):
+        if g_board[i][0] == g_board[i][1] == g_board[i][2] == 'X':
+            print(player1+" has 3 X's in a row and won!!!")
+            sys.exit()
+        if g_board[i][0] == g_board[i][1] == g_board[i][2] == 'O':
+            print(player2+" has 3 X's in a row and won!!!")
+            sys.exit()
+
+
+def vertical_win(g_board):
+    ''' The function vertical_win() takes in a parameter in the while loop and checks if the player completed the board horizontally and updates win()
+    input: None
+    output: GameOver
+    '''
+    for i in range(len(g_board)):
+        if g_board[0][i] == g_board[1][i] == g_board[2][i] == 'X':
+            print(player1+" has 3 X's in a row and won!!!")
+            sys.exit()
+        if g_board[0][i] == g_board[1][i] == g_board[2][i] == 'O':
+            print(player2+" has 3 X's in a row and won!!!")
+            sys.exit()
+    
+def diagonal_win(g_board):
+    ''' The function diagonal_win() takes in a parameter in the while loop and checks if the player completed the board horizontally and updates win()
+    input: None
+    output: GameOver
+    '''
+    
+    for i in range(len(g_board)):
+        if g_board[0][0] == g_board[1][1] == g_board[2][2] == 'X':
+            print(player1+" has 3 X's in a row and won!!!")
+            sys.exit()
+        if g_board[0][0] == g_board[1][1] == g_board[2][2] == 'O':
+            print(player2+" has 3 X's in a row and won!!!")
+            sys.exit()
+        if g_board[0][2] == g_board[1][1] == g_board[2][0] == 'X':
+            print(player1+" has 3 X's in a row and won!!!")
+            sys.exit()
+        if g_board[0][2] == g_board[1][1] == g_board[2][0] == 'O':
+            print(player2+" has 3 X's in a row and won!!!")
+            sys.exit()
+            
+def tie(g_board):
+    ''' The function tie() takes in a parameter in the while loop and checks if the game tied if Turn = 9
+    input: None
+    output: GameOver
+    '''
+    if Turn == 9:
+        print('Both of you tied! Try again!')
+        sys.exit()
+player1 = input('Player 1, Enter your name:\n')
+player2 = input('Player 2, Enter your name:\n')
+print('Alright '+player1+' and '+player2+'... I want this to be a fair match... No call-backs or whining!')
+
+
+#Main while-loop code
+while GameOver != True:
+    if Turn%2 == 0:
+        Valid = False
+    
+        
+        while Valid == False:
+            player1_input = input(player1+', which row do you want to put X?\n')
+            if player1_input > '3' or player1_input <= '0':
+                print('That is not valid')
+            
+            else:
+                Row = int(player1_input) - 1
+                Valid = True
+                
+        Valid = False
+        while Valid == False:
+            player1_input = input(player1+', which column do you want to put X?\n')
+            if player1_input > '3' or player1_input <= '0':
+                print('That is not valid')
+            else:
+                Column = int(player1_input) - 1
+                Valid = True
+                
+        if g_board[Row][Column] == 'X' or g_board[Row][Column] == 'O':
+            print('That place has already been filled.')
+            
+        else:
+            g_board[Row][Column] = 'X'
+            print_board(g_board)
+            Turn += 1
+            horizontal_win(g_board)
+            vertical_win(g_board)
+            diagonal_win(g_board)
+            tie(g_board)
+    
+    elif Turn%2 != 0:
+        Valid = False
+    
+        
+        while Valid == False:
+            player2_input = input(player2+', which row do you want to put O?\n')
+            if player2_input > '3' or player2_input <= '0':
+                print('That is not valid')
+            else:
+                Row = int(player2_input) - 1
+                Valid = True
+                
+        Valid = False
+        while Valid == False:
+            player2_input = input(player2+', which column do you want to put X?\n')
+            if player2_input > '3' or player2_input <= '0':
+                print('That is not valid')
+            else:
+                Column = int(player2_input) - 1
+                Valid = True
+        if g_board[Row][Column] == 'X' or g_board[Row][Column] == 'O':
+            print('That place has already been filled.')
+            
+        else:
+            g_board[Row][Column] = 'O'
+            print_board(g_board)
+            Turn += 1
+            horizontal_win(g_board)
+            vertical_win(g_board)
+            diagonal_win(g_board)
+            tie(g_board)
+
+
+
+
+
+
